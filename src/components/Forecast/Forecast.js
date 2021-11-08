@@ -13,7 +13,7 @@ export const Forecast = ({ forecast }) => {
           alt="current weather icon"
         />
       </div>
-      <div className="forecast__temp">{forecast.main.temp} °C</div>
+      <div className="forecast__temp">{Math.round(forecast.main.temp)} °C</div>
     </div>
   );
 };
