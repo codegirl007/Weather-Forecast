@@ -13,6 +13,7 @@ export const CurrentWeather = () => {
     wind,
     humidity,
     city,
+    country,
   } = weatherStore.useStore(
     (store) => ({
       temperature: store.temperature,
@@ -23,6 +24,7 @@ export const CurrentWeather = () => {
       wind: store.wind,
       humidity: store.humidity,
       city: store.city,
+      country: store.country,
     }),
     shallow
   );
@@ -36,7 +38,7 @@ export const CurrentWeather = () => {
       }
     >
       <h2 className="weather__city" id="mesto">
-        {city}, Country
+        {city}, {country}
       </h2>
       <div className="weather__inner weather__inner--center">
         <div className="weather__section weather__section--temp">
