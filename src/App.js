@@ -7,9 +7,16 @@ import shallow from "zustand/shallow";
 import { forecastStore } from "./stores/forecastStore";
 import { SelectCity } from "./components/SelectCity/SelectCity";
 import { Forecast } from "./components/Forecast/Forecast";
+import { Loading } from "./components/Loading/Loading";
 
 export const App = () => {
-  const city = weatherStore.useStore((store) => store.city, shallow);
+  const { city, isLoading } = weatherStore.useStore(
+    (store) => ({
+      city: store.city,
+      isLoading: store.isLoading,
+    }),
+    shallow
+  );
 
   const weatherForecast = forecastStore.useStore(
     (store) => store.weatherForecast,
@@ -29,14 +36,20 @@ export const App = () => {
       <div className="container">
         <h1>My Weather App</h1>
         <SelectCity />
-        <div className="weather">
-          <CurrentWeather />
-          <div className="weather__forecast" id="predpoved">
-            {weatherForecast.map((forecast) => (
-              <Forecast forecast={forecast} key={forecast.dt} />
-            ))}
-          </div>
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <div className="weather">
+              <CurrentWeather />
+              <div className="weather__forecast" id="predpoved">
+                {weatherForecast.map((forecast) => (
+                  <Forecast forecast={forecast} key={forecast.dt} />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
